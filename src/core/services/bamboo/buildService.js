@@ -5,14 +5,13 @@ define([
 	'core/services/buildServiceBase',
 	'core/services/request',
 	'core/services/bamboo/bambooPlan',
-	'mout/object/mixIn',
 	'rx'
-], function(BuildServiceBase, request, BambooPlan, mixIn, Rx) {
+], function(BuildServiceBase, request, BambooPlan, Rx) {
 
 	'use strict';
 
 	var BambooBuildService = function(settings) {
-		mixIn(this, new BuildServiceBase(settings, BambooBuildService.settings()));
+		Object.assign(this, new BuildServiceBase(settings, BambooBuildService.settings()));
 		this.Build = BambooPlan;
 		this.availableBuilds = availableBuilds;
 	};
@@ -21,10 +20,17 @@ define([
 		return {
 			typeName: 'Atlassian Bamboo',
 			baseUrl: 'bamboo',
-			urlHint: 'URL, e.g. http://ci.openmrs.org/',
-			urlHelp: 'For Bamboo OnDemand use https://[your_account].atlassian.net/builds',
 			icon: 'core/services/bamboo/icon.png',
 			logo: 'core/services/bamboo/logo.png',
+			fields: [
+                {
+					type: 'url',
+					name: 'Server URL, e.g. http://ci.openmrs.org/',
+					help: 'For Bamboo OnDemand use https://[your_account].atlassian.net/builds'
+				},
+				{ type: 'username' },
+                { type: 'password' }
+            ],
 			defaultConfig: {
 				baseUrl: 'bamboo',
 				name: '',

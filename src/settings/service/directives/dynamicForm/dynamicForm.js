@@ -2,33 +2,55 @@ import angular from 'angular';
 import app from 'settings/app';
 import template from 'settings/service/directives/dynamicForm/dynamicForm.html';
 
-export default app.directive('dynamicForm', function() {
-	return {
-		scope: {
-			service: '=',
-			config: '='
-		},
-		templateUrl: template,
-		controller: function($scope, $element, $attrs, $transclude) {
-			$scope.isDefined = angular.isDefined;
+export default app.directive('dynamicForm', ($sce) => ({
+    scope: {
+        service: '=',
+        config: '='
+    },
+    templateUrl: template,
+    controller($scope, $element, $attrs, $transclude) {
+        $scope.isDefined = angular.isDefined;
 
-			var addMissingProperties = function(defaultConfig, config) {
-				for (var prop in defaultConfig) {
-					if (defaultConfig.hasOwnProperty(prop) && !angular.isDefined(config[prop])) {
-						config[prop] = defaultConfig[prop];
-					}
-				}
-			};
+        $scope.$watchCollection('config', (config) => {
+            $scope.$emit('dynamicForm.changed', angular.copy(config));
+        });
 
-			$scope.$watchCollection('config', function(config) {
-				$scope.$emit('dynamicForm.changed', angular.copy(config));
-			});
+        $scope.$watch('service', (service) => {
+            if (service) {
+                $scope.config = Object.assign(service.defaultConfig, $scope.config);
+                if ($scope.service.fields && $scope.service.fields.length) {
+                    $scope.service.fields
+                        .filter((field) => field.help)
+                        .forEach((field) => {
+                            field.help = $sce.trustAsHtml(field.help);
+                        });
+                } else {
+                    $scope.service.fields = createFieldsFromConfig($scope.config);
+                }
+            }
+        });
+    }
+}));
 
-			$scope.$watch('service', function(service) {
-				if (service && service.defaultConfig) {
-					addMissingProperties(service.defaultConfig, $scope.config);
-				}
-			});
-		}
-	};
-});
+const createFieldsFromConfig = (config) => {
+    const fields = [];
+    if (config.hasOwnProperty('url')) {
+        fields.push({ type: 'url' });
+    }
+    if (config.hasOwnProperty('username')) {
+        fields.push({ type: 'username' });
+    }
+    if (config.hasOwnProperty('password')) {
+        fields.push({ type: 'password' });
+    }
+    if (config.hasOwnProperty('token')) {
+        fields.push({ type: 'token' });
+    }
+    if (config.hasOwnProperty('branch')) {
+        fields.push({ type: 'branch' });
+    }
+    if (config.hasOwnProperty('updateInterval')) {
+        fields.push({ type: 'updateInterval' });
+    }
+    return fields;
+};

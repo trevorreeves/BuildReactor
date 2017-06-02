@@ -25,7 +25,7 @@ const onMessage = (request, sender, sendResponse) => {
 function onMessageHandler(request, sender, sendResponse) {
 	switch (request.name) {
 	case 'availableServices':
-		availableServices(sendResponse);
+		sendResponse(serviceController.getAllTypes());
 		break;
 	case 'availableProjects':
 		availableProjects(sendResponse, request.serviceSettings);
@@ -63,20 +63,21 @@ function onMessageHandler(request, sender, sendResponse) {
 	return false;
 }
 
-const availableServices = (sendResponse) => {
-	const types = serviceController.getAllTypes();
-	const settingList = Object.keys(types).map((k) => types[k]).map((t) => t.settings());
-	return sendResponse(settingList);
-};
-
 const availableProjects = (sendResponse, settings) => {
-	const Service = serviceController.getAllTypes()[settings.baseUrl];
-	new Service(settings).availableBuilds().subscribe(function(projects) {
-		projects.selected = settings.projects;
-		sendResponse({ projects });
-	}, function(error) {
-		sendResponse({ error });
-	});
+	serviceController.createService(settings)
+		.availableBuilds()
+		.subscribe((projects) => {
+			projects.selected = settings.projects;
+			sendResponse({ projects });
+		}, (error) => {
+			sendResponse({
+				error: {
+					name: error.name,
+					message: error.message,
+					stack: error.stack
+				}
+			});
+		});
 };
 
 const onConnect = (port) => {

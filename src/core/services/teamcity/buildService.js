@@ -3,14 +3,13 @@ import joinUrl from 'common/joinUrl';
 define([
 	'core/services/buildServiceBase',
 	'core/services/request',
-	'core/services/teamcity/teamcityBuild',
-	'mout/object/mixIn'
-], function(BuildServiceBase, request, TravisBuild, mixIn) {
+	'core/services/teamcity/teamcityBuild'
+], function(BuildServiceBase, request, TravisBuild) {
 
 	'use strict';
 
 	var TeamcityBuildService = function(settings) {
-		mixIn(this, new BuildServiceBase(settings, TeamcityBuildService.settings()));
+		Object.assign(this, new BuildServiceBase(settings, TeamcityBuildService.settings()));
 		this.Build = TravisBuild;
 		this.availableBuilds = availableBuilds;
 	};
@@ -19,9 +18,13 @@ define([
 		return {
 			typeName: 'TeamCity',
 			baseUrl: 'teamcity',
-			urlHint: 'URL, e.g. http://teamcity.jetbrains.com/',
 			icon: 'core/services/teamcity/icon.png',
 			logo: 'core/services/teamcity/logo.png',
+			fields: [
+                { type: 'url', config: 'url', placeholder: 'Server URL, e.g. http://teamcity.jetbrains.com/' },
+                { type: 'username' },
+                { type: 'password' }
+            ],
 			defaultConfig: {
 				baseUrl: 'teamcity',
 				name: '',

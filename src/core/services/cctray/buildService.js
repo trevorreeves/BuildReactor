@@ -4,15 +4,13 @@ define([
 	'core/services/buildServiceBase',
 	'core/services/request',
 	'jquery',
-	'rx',
-	'mout/object/mixIn',
-	'mout/array/contains'
-], function(BuildServiceBase, request, $, Rx, mixIn, contains) {
+	'rx'
+], function(BuildServiceBase, request, $, Rx) {
 
 	'use strict';
 
 	var CCBuildService = function(settings, serviceInfo = CCBuildService.settings()) {
-		mixIn(this, new BuildServiceBase(settings, serviceInfo));
+		Object.assign(this, new BuildServiceBase(settings, serviceInfo));
 		this.availableBuilds = availableBuilds;
 		this.updateAll = updateAll;
 		this.cctrayLocation = '';
@@ -23,7 +21,6 @@ define([
 		return {
 			typeName: 'CCTray Generic',
 			baseUrl: 'cctray',
-			urlHint: 'URL, e.g. http://cruisecontrol.instance.com/cctray.xml',
 			icon: 'core/services/cctray/icon.png',
 			logo: 'core/services/cctray/logo.png',
 			defaultConfig: {
@@ -56,11 +53,7 @@ define([
 		}).selectMany(function(projects) {
 			return Rx.Observable.fromArray(projects);
 		}).where(function(build) {
-			return contains(self.settings.projects, build.id);
-		}).select(function(state) {
-			return self.mixInMissingState(state, self.serviceInfo);
-		}).do(function(state) {
-			return self.processBuildUpdate(state);
+			return self.settings.projects.includes(build.id);
 		}).defaultIfEmpty([]);
 	};
 
@@ -85,9 +78,8 @@ define([
 				};
 				if (status in { 'Success': 1, 'Failure': 1, 'Exception': 1 }) {
 					state.isBroken = status in { 'Failure': 1, 'Exception': 1 };
-				} else {
+				} else if (status !== 'Unknown') {
 					state.tags.push({ name : 'Unknown', description : 'Status [' + status + '] is unknown' });
-					delete state.isBroken;
 				}
 
 				return state;

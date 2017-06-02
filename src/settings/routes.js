@@ -1,6 +1,7 @@
 import addServiceView from 'settings/add/view.html';
 import app from 'settings/app';
 import configurationTemplate from 'settings/configuration/view.html';
+import notificationsTemplate from 'settings/notifications/notifications.html';
 import serviceSettingsView from 'settings/service/view.html';
 import viewSettingsTemplate from 'settings/view/view.html';
 
@@ -26,6 +27,11 @@ export default app.config(($routeProvider) => {
 		templateUrl: viewSettingsTemplate,
 		controller: 'ViewSettingsCtrl',
 		view: 'view'
+	})
+	.when('/notifications', {
+		templateUrl: notificationsTemplate,
+		controller: 'NotificationsCtrl',
+		view: 'notifications'
 	})
 	.when('/configuration', {
 		templateUrl: configurationTemplate,

@@ -1,6 +1,5 @@
 /* eslint no-console: 0 */
 import 'jquery';
-import 'html5sortable/src/html.sortable.src';
 import 'angular';
 import 'angular-mocks';
 import Rx from 'rx';
@@ -56,6 +55,8 @@ window.Notification = function() {
 		close: function() {}
 	};
 };
+
+console.warn('New test run ----------------------------------------');
 
 const testsContext = require.context("..", true, /.spec.js$/);
 testsContext.keys().forEach(testsContext);
