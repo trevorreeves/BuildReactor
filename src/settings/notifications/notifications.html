@@ -1,73 +1,220 @@
-<div class="col-md-12">
-	<form class="form-horizontal col-md-4" role="form">
-		<fieldset>
-			<legend>
+	<form class="col-md-12 form-group">
+		<ul class="nav nav-tabs">
+			<li ng-class="{ active: isCurrentTab('cards') }" role="presentation">
+				<a ng-click="setTab('cards')">Cards</a>
+			</li>
+			<li ng-class="{ active: isCurrentTab('sounds') }" role="presentation">
+				<a ng-click="setTab('sounds')">Sounds</a>
+			</li>
+			<li ng-class="{ active: isCurrentTab('soundlibrary') }" role="presentation">
+				<a ng-click="setTab('soundlibrary')">Sound Library</a>
+			</li>
+		</ul>
+	</form>
+
+	<div ng-show="isCurrentTab('cards')">
+		<form class="form-horizontal col-md-4" role="form">
+			<fieldset>
 				<div class="form-group">
-					<label class="col-md-6 control-label">Notifications</label>
+					<label class="col-md-6 control-label">All</label>
 					<div class="col-md-6">
 						<ul class="nav nav-pills">
-							<li role="presentation" ng-class="{ active: config.notifications.enabled }" ng-click="setField('enabled', true)"><a>On</a></li>
-							<li role="presentation" ng-class="{ active: !config.notifications.enabled }" ng-click="setField('enabled', false)"><a>Off</a></li>
+							<li role="presentation" ng-class="{ active: config.notifications.cards.enabled }" ng-click="setField('cards', 'enabled', true)"><a>On</a></li>
+							<li role="presentation" ng-class="{ active: !config.notifications.cards.enabled }" ng-click="setField('cards', 'enabled', false)"><a>Off</a></li>
 						</ul>
 					</div>
 				</div>
-			</legend>
-			<div class="form-group" ng-class="{ 'text-muted': !config.notifications.enabled }">
-				<label class="col-md-6 control-label">Show when dashboard active</label>
-				<div class="col-md-6">
-					<ul class="nav nav-pills">
-						<li role="presentation" ng-class="{ active: config.notifications.showWhenDashoardActive }" ng-click="setField('showWhenDashoardActive', true)">
-							<a>On</a>
-						</li>
-						<li role="presentation" ng-class="{ active: !config.notifications.showWhenDashoardActive }" ng-click="setField('showWhenDashoardActive', false)"><a>Off</a></li>
-					</ul>
+				<hr/>
+				<div class="form-group" ng-class="{ 'text-muted': !config.notifications.cards.enabled }">
+					<label class="col-md-6 control-label">Show when dashboard active</label>
+					<div class="col-md-6">
+						<ul class="nav nav-pills">
+							<li role="presentation" ng-class="{ active: config.notifications.cards.showWhenDashboardActive }" ng-click="setField('cards', 'showWhenDashboardActive', true)"><a>On</a></li>
+							<li role="presentation" ng-class="{ active: !config.notifications.cards.showWhenDashboardActive }" ng-click="setField('cards', 'showWhenDashboardActive', false)"><a>Off</a></li>
+						</ul>
+					</div>
 				</div>
-			</div>
-			<div class="form-group" ng-class="{ 'text-muted': !config.notifications.enabled }">
-				<label class="col-md-6 control-label">Build broken</label>
-				<div class="col-md-6">
-					<ul class="nav nav-pills">
-						<li role="presentation" ng-class="{ active: config.notifications.buildBroken }" ng-click="setField('buildBroken', true)"><a>On</a></li>
-						<li role="presentation" ng-class="{ active: !config.notifications.buildBroken }" ng-click="setField('buildBroken', false)"><a>Off</a></li>
-					</ul>
+				<div class="form-group" ng-class="{ 'text-muted': !config.notifications.cards.enabled }">
+					<label class="col-md-6 control-label">Build broken</label>
+					<div class="col-md-6">
+						<ul class="nav nav-pills">
+							<li role="presentation" ng-class="{ active: config.notifications.cards.buildBroken }" ng-click="setField('cards', 'buildBroken', true)"><a>On</a></li>
+							<li role="presentation" ng-class="{ active: !config.notifications.cards.buildBroken }" ng-click="setField('cards', 'buildBroken', false)"><a>Off</a></li>
+						</ul>
+					</div>
 				</div>
-			</div>
-			<div class="form-group" ng-class="{ 'text-muted': !config.notifications.enabled }">
-				<label class="col-md-6 control-label">Build fixed</label>
-				<div class="col-md-6">
-					<ul class="nav nav-pills">
-						<li role="presentation" ng-class="{ active: config.notifications.buildFixed }" ng-click="setField('buildFixed', true)"><a>On</a></li>
-						<li role="presentation" ng-class="{ active: !config.notifications.buildFixed }" ng-click="setField('buildFixed', false)"><a>Off</a></li>
-					</ul>
+				<div class="form-group" ng-class="{ 'text-muted': !config.notifications.cards.enabled }">
+					<label class="col-md-6 control-label">Build fixed</label>
+					<div class="col-md-6">
+						<ul class="nav nav-pills">
+							<li role="presentation" ng-class="{ active: config.notifications.cards.buildFixed }" ng-click="setField('cards', 'buildFixed', true)"><a>On</a></li>
+							<li role="presentation" ng-class="{ active: !config.notifications.cards.buildFixed }" ng-click="setField('cards', 'buildFixed', false)"><a>Off</a></li>
+						</ul>
+					</div>
 				</div>
-			</div>
-			<div class="form-group" ng-class="{ 'text-muted': !config.notifications.enabled }">
-				<label class="col-md-6 control-label">Build started</label>
-				<div class="col-md-6">
-					<ul class="nav nav-pills">
-						<li role="presentation" ng-class="{ active: config.notifications.buildStarted }" ng-click="setField('buildStarted', true)"><a>On</a></li>
-						<li role="presentation" ng-class="{ active: !config.notifications.buildStarted }" ng-click="setField('buildStarted', false)"><a>Off</a></li>
-					</ul>
+				<div class="form-group" ng-class="{ 'text-muted': !config.notifications.cards.enabled }">
+					<label class="col-md-6 control-label">Build started</label>
+					<div class="col-md-6">
+						<ul class="nav nav-pills">
+							<li role="presentation" ng-class="{ active: config.notifications.cards.buildStarted }" ng-click="setField('cards', 'buildStarted', true)"><a>On</a></li>
+							<li role="presentation" ng-class="{ active: !config.notifications.cards.buildStarted }" ng-click="setField('cards', 'buildStarted', false)"><a>Off</a></li>
+						</ul>
+					</div>
 				</div>
-			</div>
-			<div class="form-group" ng-class="{ 'text-muted': !config.notifications.enabled }">
-				<label class="col-md-6 control-label">Build successful</label>
-				<div class="col-md-6">
-					<ul class="nav nav-pills">
-						<li role="presentation" ng-class="{ active: config.notifications.buildSuccessful }" ng-click="setField('buildSuccessful', true)"><a>On</a></li>
-						<li role="presentation" ng-class="{ active: !config.notifications.buildSuccessful }" ng-click="setField('buildSuccessful', false)"><a>Off</a></li>
-					</ul>
+				<div class="form-group" ng-class="{ 'text-muted': !config.notifications.cards.enabled }">
+					<label class="col-md-6 control-label">Build successful</label>
+					<div class="col-md-6">
+						<ul class="nav nav-pills">
+							<li role="presentation" ng-class="{ active: config.notifications.cards.buildSuccessful }" ng-click="setField('cards', 'buildSuccessful', true)"><a>On</a></li>
+							<li role="presentation" ng-class="{ active: !config.notifications.cards.buildSuccessful }" ng-click="setField('cards', 'buildSuccessful', false)"><a>Off</a></li>
+						</ul>
+					</div>
 				</div>
-			</div>
-			<div class="form-group" ng-class="{ 'text-muted': !config.notifications.enabled }">
-				<label class="col-md-6 control-label">Build still failing</label>
-				<div class="col-md-6">
-					<ul class="nav nav-pills">
-						<li role="presentation" ng-class="{ active: config.notifications.buildStillFailing }" ng-click="setField('buildStillFailing', true)"><a>On</a></li>
-						<li role="presentation" ng-class="{ active: !config.notifications.buildStillFailing }" ng-click="setField('buildStillFailing', false)"><a>Off</a></li>
-					</ul>
+				<div class="form-group" ng-class="{ 'text-muted': !config.notifications.cards.enabled }">
+					<label class="col-md-6 control-label">Build still failing</label>
+					<div class="col-md-6">
+						<ul class="nav nav-pills">
+							<li role="presentation" ng-class="{ active: config.notifications.cards.buildStillFailing }" ng-click="setField('cards', 'buildStillFailing', true)"><a>On</a></li>
+							<li role="presentation" ng-class="{ active: !config.notifications.cards.buildStillFailing }" ng-click="setField('cards',  'buildStillFailing', false)"><a>Off</a></li>
+						</ul>
+					</div>
 				</div>
-			</div>
-		</fieldset>
-	</form>
-</div>
+			</fieldset>
+		</form>
+	</div>
+
+	<div ng-show="isCurrentTab('sounds')">
+		<form class="form-horizontal col-md-4 form-group" role="form">
+			<fieldset>
+				<div class="form-group">
+					<label class="col-md-6 control-label">All</label>
+					<div class="col-md-6">
+						<ul class="nav nav-pills">
+							<li role="presentation" ng-class="{ active: config.notifications.sounds.enabled }" ng-click="setField('sounds', 'enabled', true)"><a>On</a></li>
+							<li role="presentation" ng-class="{ active: !config.notifications.sounds.enabled }" ng-click="setField('sounds', 'enabled', false)"><a>Off</a></li>
+						</ul>
+					</div>
+				</div>
+				<hr/>
+				<div class="form-group" ng-class="{ 'text-muted': !config.notifications.sounds.enabled }">
+					<label class="col-md-6 control-label">Play when dashboard active</label>
+					<div class="col-md-6">
+						<ul class="nav nav-pills">
+							<li role="presentation" ng-class="{ active: config.notifications.sounds.playWhenDashboardActive }" ng-click="setField('sounds', 'playWhenDashboardActive', true)">
+								<a>On</a>
+							</li>
+							<li role="presentation" ng-class="{ active: !config.notifications.sounds.playWhenDashboardActive }" ng-click="setField('sounds', 'playWhenDashboardActive', false)"><a>Off</a></li>
+						</ul>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+
+		<form class="form-horizontal col-md-10 form-group" role="form">
+			<fieldset>
+				<legend><h4>Rules</h4></legend>
+
+				<div ng-class="{ 'text-muted': !config.notifications.sounds.enabled }">
+					<table class="table table-bordered table-striped table-hover">
+						<thead>
+						<tr>
+							<th>Selector</th>
+							<th>Build broken</th>
+							<th>Build fixed</th>
+							<th>Build started</th>
+							<th>Build successful</th>
+							<th>Build still failing</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>
+								<div class="col-xs-12">
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Build Server">
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Build Group">
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Build">
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="col-xs-10">
+									<div class="form-group">
+										<ul class="nav nav-pills">
+											<li role="presentation" ng-class="{ active: config.notifications.sounds.events.buildBroken.enabled }" ng-click="setSoundEvent('buildBroken', true)" class="active" style=""><a>On</a></li>
+											<li role="presentation" ng-class="{ active: !config.notifications.sounds.events.buildBroken.enabled }" ng-click="setSoundEvent('buildBroken', false)" class="" style=""><a>Off</a></li>
+										</ul>
+									</div>
+									<div class="form-group">
+										<input type="text" value="Sad Trombone" class="form-control" placeholder="Sound name" />
+									</div>
+								</div>
+							</td>
+							
+							<td>
+								<div class="col-xs-10">
+									<div class="form-group">
+										<ul class="nav nav-pills">
+											<li role="presentation" ng-class="{ active: config.notifications.sounds.events.buildFixed.enabled }" ng-click="setSoundEvent('buildFixed', true)"><a>On</a></li>
+											<li role="presentation" ng-class="{ active: !config.notifications.sounds.events.buildFixed.enabled }" ng-click="setSoundEvent('buildFixed', false)"><a>Off</a></li>
+										</ul>
+									</div>
+									<div class="form-group">
+										<input type="text" value="Sad Trombone" class="form-control" placeholder="Sound name" />
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="col-xs-10">
+									<div class="form-group">
+										<ul class="nav nav-pills">
+											<li role="presentation" ng-class="{ active: config.notifications.sounds.events.buildStarted.enabled }" ng-click="setSoundEvent('buildStarted', true)"><a>On</a></li>
+											<li role="presentation" ng-class="{ active: !config.notifications.sounds.events.buildStarted.enabled }" ng-click="setSoundEvent('buildStarted', false)"><a>Off</a></li>
+										</ul>
+									</div>
+									<div class="form-group">
+										<input type="text" value="Sad Trombone" class="form-control" placeholder="Sound name" />
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="col-xs-10">
+									<div class="form-group">
+										<ul class="nav nav-pills">
+											<li role="presentation" ng-class="{ active: config.notifications.sounds.events.buildSuccessful.enabled }" ng-click="setSoundEvent('buildSuccessful', true)"><a>On</a></li>
+											<li role="presentation" ng-class="{ active: !config.notifications.sounds.events.buildSuccessful.enabled }" ng-click="setSoundEvent('buildSuccessful', false)"><a>Off</a></li>
+										</ul>
+									</div>
+									<div class="form-group">
+										<input type="text" value="Sad Trombone" class="form-control" placeholder="Sound name" />
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="col-xs-10">
+									<div class="form-group">
+										<ul class="nav nav-pills">
+											<li role="presentation" ng-class="{ active: config.notifications.sounds.events.buildStillFailing.enabled }" ng-click="setSoundEvent('buildStillFailing', true)"><a>On</a></li>
+											<li role="presentation" ng-class="{ active: !config.notifications.sounds.events.buildStillFailing.enabled }" ng-click="setSoundEvent('buildStillFailing', false)"><a>Off</a></li>
+										</ul>
+									</div>
+									<div class="form-group">
+										<input type="text" value="Sad Trombone" class="form-control" placeholder="Sound name" />
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+					</table>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+
+	<div ng-show="isCurrentTab('soundlibrary')">
+		<section sound-Library sounds="config.notifications.sounds.library"></section>
+	</div>

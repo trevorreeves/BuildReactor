@@ -28,7 +28,7 @@ export default app.config(($routeProvider) => {
 		controller: 'ViewSettingsCtrl',
 		view: 'view'
 	})
-	.when('/notifications', {
+	.when('/notifications/', {
 		templateUrl: notificationsTemplate,
 		controller: 'NotificationsCtrl',
 		view: 'notifications'

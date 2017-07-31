@@ -61,7 +61,8 @@ module.exports = {
       { from: '../manifest.json' },
       { from: '../img', to: 'img' },
       { from: 'core/services/*/*.{png,svg}' },
-      { from: 'services/*/*.{png,svg}' }
+      { from: 'services/*/*.{png,svg}' },
+      { from: '../sounds', to: 'sounds'}
     ]),
     new ExtractTextPlugin("[name].css")
   ],

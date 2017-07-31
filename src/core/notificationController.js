@@ -24,16 +24,16 @@ function init(options) {
     }
 
     function createBuildFinishedMessage(event) {
-        if (event.broken && config.notifications.buildBroken) {
+        if (event.broken && config.notifications.cards.buildBroken) {
             return createBuildBrokenMessage(event);
         }
-        if (event.fixed && config.notifications.buildFixed) {
+        if (event.fixed && config.notifications.cards.buildFixed) {
             return createNotificationInfo(event, 'Build fixed', options.timeout);
         }
-        if (!event.details.isBroken && config.notifications.buildSuccessful) {
+        if (!event.details.isBroken && config.notifications.cards.buildSuccessful) {
             return createNotificationInfo(event, 'Build successful', options.timeout);
         }
-        if (event.details.isBroken && config.notifications.buildStillFailing) {
+        if (event.details.isBroken && config.notifications.cards.buildStillFailing) {
             return createNotificationInfo(event, 'Build still failing', options.timeout);
         }
         return null;
@@ -48,7 +48,7 @@ function init(options) {
     }
 
     function whenDashboardInactive(event) {
-        return config.notifications.showWhenDashboardActive ?
+        return config.notifications.cards.showWhenDashboardActive ?
             Rx.Observable.return(event) :
             chromeApi
                 .isDashboardActive()
@@ -141,14 +141,14 @@ function init(options) {
     let reloading = false;
 
     const buildStarted = events.getByName('buildStarted')
-        .where((event) => config.notifications.enabled)
-        .where((event) => config.notifications.buildStarted)
+        .where((event) => config.notifications.cards.enabled)
+        .where((event) => config.notifications.cards.buildStarted)
         .where((event) => !reloading)
         .where((event) => !event.details.isDisabled)
         .selectMany(whenDashboardInactive)
         .select((ev) => createNotificationInfo(ev, 'Build started', options.timeout));
     const buildFinished = events.getByName('buildFinished')
-        .where((event) => config.notifications.enabled)
+        .where((event) => config.notifications.cards.enabled)
         .where((event) => !reloading)
         .where((event) => !event.details.isDisabled)
         .selectMany(whenDashboardInactive)

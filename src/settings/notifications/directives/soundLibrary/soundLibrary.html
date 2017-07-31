@@ -1,0 +1,48 @@
+<form class="form-horizontal col-md-12 form-group" role="form">
+    <fieldset>
+        <table class="table table-hover">
+            <thead>
+                <tr>     
+                    <th style="width:250px">Name</th>
+                    <th>Source</th>
+                    <th style="width:60px"></th>
+                    <th style="width:80px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="sound in sounds" ng-class="">
+                    <td style="vertical-align: middle">{{ sound.name }}</td>
+                    <td style="vertical-align: middle">{{ soundIsDeletable(sound) ? sound.src : '(in-built)' }}</td>
+                    <td>
+                        <section play-sound sound-src="sound.src"></section>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default" ng-show="soundIsDeletable(sound)">
+                            <a ng-click="deleteSound(sound)" title="delete sound"><i class="fa fa-remove fa-fw" style="color:red"></i></a>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group" style="margin: 0px -10px;">
+                            <input type="text" class="form-control" placeholder="Name" ng-model="newSoundName" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group" style="margin: 0 -10px 0 0">
+                            <input type="text" class="form-control" placeholder="Media URL" ng-model="newSoundSrc" />
+                        </div>
+                    </td>
+                    <td>
+                        <section play-sound sound-src="newSoundSrc" always-reload="true" disabled="!newSoundIsValid()" ng-disabled="!newSoundIsValid()"></section>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-success" ng-click="addNewSound()" ng-disabled="!newSoundIsValid()">
+                            <i class="fa fa-plus"></i> Add
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</form>
