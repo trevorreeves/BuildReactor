@@ -1,13 +1,12 @@
-import BambooService from 'core/services/bamboo/buildService';
 import BuildBotService from 'core/services/buildbot/buildService';
 import CctrayService from 'core/services/cctray/buildService';
 import CruiseControlNetService from 'core/services/cruisecontrol.net/buildService';
 import CruiseControlRBService from 'core/services/cruisecontrol.rb/buildService';
 import CruiseControlService from 'core/services/cruisecontrol/buildService';
 import GoService from 'core/services/go/buildService';
-import SnapService from 'core/services/snap/buildService';
 import TeamCityService from 'core/services/teamcity/buildService';
 import badgeController from 'core/badgeController';
+import bamboo from 'services/bamboo/bamboo';
 import buildkite from 'services/buildkite/buildkite';
 import chromeListeners from 'core/chromeListeners';
 import jenkins from 'services/jenkins/jenkins';
@@ -31,7 +30,7 @@ chromeListeners.init();
 passwordExpiredHandler.init();
 
 serviceController.clear();
-serviceController.registerType(BambooService);
+serviceController.registerType(poolingService.create(bamboo));
 serviceController.registerType(BuildBotService);
 serviceController.registerType(poolingService.create(buildkite));
 serviceController.registerType(CctrayService);
@@ -40,7 +39,6 @@ serviceController.registerType(CruiseControlNetService);
 serviceController.registerType(CruiseControlRBService);
 serviceController.registerType(GoService);
 serviceController.registerType(poolingService.create(jenkins));
-serviceController.registerType(SnapService);
 serviceController.registerType(TeamCityService);
 serviceController.registerType(poolingService.create(travis));
 
