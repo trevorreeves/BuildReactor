@@ -1,5 +1,5 @@
 <button type="button" class="btn btn-default" ng-click="togglePlay()" ng-disabled="disabled">
     <a ng-attr-title="{{message}}">
-        <i class="fa fa-fw" ng-class="{ 'fa-pause' : currentSoundState === 'playing', 'fa-play' : currentSoundState !== 'playing' && currentSoundState !== 'errored', 'fa-flash' : currentSoundState === 'errored' }"></i>
+        <i class="fa fa-fw" ng-class="{ 'fa-pause' : currentSoundState === 'playing', 'fa-play' : currentSoundState !== 'playing' && currentSoundState !== 'errored', 'fa-flash' : currentSoundState === 'errored', 'sound-warning' : currentSoundState === 'errored' }"></i>
     </a>
 </button>

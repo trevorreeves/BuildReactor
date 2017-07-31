@@ -13,6 +13,8 @@
 @import "service/directives/filterQuery/_filterQuery.scss";
 @import "service/directives/projectList/_projectList.scss";
 @import "service/directives/selectedProjects/_selectedProjects.scss";
+@import "notifications/directives/playSound/_playSound.scss";
+@import "notifications/directives/soundLibrary/_soundLibrary.scss";
 
 html, body {
 	height: 100%;
