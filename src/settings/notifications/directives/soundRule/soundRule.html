@@ -1,0 +1,36 @@
+<td>
+    <input type="text" class="form-control" placeholder="Build Server" ng-model="rule.selector.server">
+    <input type="text" class="form-control" placeholder="Build Group" ng-model="rule.selector.group">
+    <input type="text" class="form-control" placeholder="Build" ng-model="rule.selector.build">
+</td>
+<td>
+    <select class="form-control" ng-name="{{rule.events.buildBroken}}" ng-model="rule.events.buildBroken">
+        <option ng-repeat="soundInfo in sounds" value="{{soundInfo.name}}">{{soundInfo.name}}</option>
+    </select>
+    <section play-sound sound-src="sounds[rule.events.buildBroken].src"></section>
+</td>
+
+<td>
+    <select class="form-control" ng-name="{{rule.events.buildFixed}}" ng-model="rule.events.buildFixed">
+        <option ng-repeat="soundInfo in sounds" value="{{soundInfo.name}}">{{soundInfo.name}}</option>
+    </select>
+    <section play-sound sound-src="sounds[rule.events.buildFixed].src"></section>
+</td>
+<td>
+    <select class="form-control" ng-name="{{rule.events.buildStarted}}" ng-model="rule.events.buildStarted">
+        <option ng-repeat="soundInfo in sounds" value="{{soundInfo.name}}">{{soundInfo.name}}</option>
+    </select>
+    <section play-sound sound-src="sounds[rule.events.buildStarted].src"></section>
+</td>
+<td>
+    <select class="form-control" ng-name="{{rule.events.buildSuccessful}}" ng-model="rule.events.buildSuccessful">
+        <option ng-repeat="soundInfo in sounds" value="{{soundInfo.name}}">{{soundInfo.name}}</option>
+    </select>
+    <section play-sound sound-src="sounds[rule.events.buildSuccessful].src"></section>
+</td>
+<td>
+    <select class="form-control" ng-name="{{rule.events.buildStillFailing}}" ng-model="rule.events.buildStillFailing">
+        <option ng-repeat="soundInfo in sounds" value="{{soundInfo.name}}">{{soundInfo.name}}</option>
+    </select>
+    <section play-sound sound-src="sounds[rule.events.buildStillFailing].src"></section>
+</td>

@@ -2,7 +2,6 @@ import soundLibrary from 'core/soundLibrary';
 import soundDefs from 'core/config/soundDefinitions'
 import app from 'settings/app';
 import core from 'common/core';
-import soundDriver from 'core/soundDriver';
 import template from 'settings/notifications/directives/soundLibrary/soundLibrary.html';
 
 import 'settings/notifications/directives/playSound/playSound';

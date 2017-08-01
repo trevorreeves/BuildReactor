@@ -3,6 +3,7 @@ import app from 'settings/app';
 import core from 'common/core';
 
 import 'settings/notifications/directives/soundLibrary/soundLibrary';
+import 'settings/notifications/directives/soundRule/soundRule';
 
 export default app.controller('NotificationsCtrl', ($scope) => {
 	core.views.subscribe((config) => {

@@ -24,7 +24,8 @@ const bundled = {
     Ping        : new SoundInfo('Ping', 'sounds/ping.wav', SoundTypes.Bundled),
     SadTrombone : new SoundInfo('Sad Trombone', 'sounds/sad_trombone.wav', SoundTypes.Bundled),
     Applause    : new SoundInfo('Applause', 'sounds/Applause.wav', SoundTypes.Bundled),
-    Glitch      : new SoundInfo('Glitch', 'sounds/glitch.wav', SoundTypes.Bundled)
+    Glitch      : new SoundInfo('Glitch', 'sounds/glitch.wav', SoundTypes.Bundled),
+    None        : new SoundInfo('None', null, SoundTypes.bundled)
 }
 
 export default {
